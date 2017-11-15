@@ -197,6 +197,7 @@ export default{
             options2: '',
             employee_id: '',
             description: '',
+            modal2: "Open: LeaveType",
             counter: 1,
             leave_type_id: '',
             date_to: '',
@@ -305,8 +306,15 @@ export default{
                 self.options =res.body.data;
                 console.log(res.body);
             },function(err){
-
             });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.leave_type_id="";
+            self.color_in_report="";
+            self.type="";
+            self.apply_double_validation="";
+            self.allow_override_limit="";
+            self.meeting_type="";
+            self.active="";
         },
         submitmodaledit: function () {
             var self = this;
@@ -315,6 +323,7 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg2").modal('hide');
 
         },
 

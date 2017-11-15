@@ -25,7 +25,7 @@ var transporter = nodemailer.createTransport({
 });
 var mysql = require("mysql");
 var connection = mysql.createConnection({
-    host: "46.101.37.156",
+    host: "192.168.100.106",
     user: "sprout",
     password: "sprout12345",
     database: "sprout"
@@ -236,8 +236,60 @@ router.post('/createcontact', function (req, res, next) {
         }
     });
 })
-
 router.post('/createcontactmodal', function (req, res, next) {
+    if(!(req.body.zip)){
+        req.body.zip=0;
+    }
+    if(!(req.body.individual)){
+        req.body.individual=0;
+    }
+    if(!(req.body.is_Customer)){
+        req.body.is_Customer=0;
+    }
+    if(!(req.body.is_vendor)){
+        req.body.is_vendor=0;
+    }
+
+    if(!(req.body.internal_reference_id)){
+        req.body.internal_reference_id=null;
+    }
+    if(!(req.body.internal_reference_id)){
+        req.body.internal_reference_id=0;
+    }
+    if(!(req.body.account_reciveable)){
+        req.body.account_reciveable=null;
+    }
+    if(!(req.body.account_payable)){
+        req.body.account_payable=null;
+    }
+    if(!(req.body.tags)){
+        req.body.tags=null;
+    }
+
+    connection.query('INSERT INTO `contact_notes`(`notes`) VALUES ("' + req.body.mnotes_id + '")', function (error, results, fields) {
+        if (error) {
+            res.json({"status": "failed", "message": error.message});
+        }
+        else {
+            console.log('INSERT INTO `contact`(`name`,`street1`,`street2`,`city`,`states`,`zip`,`country`,`title`,`job_position`,`phone_number`,`mobile_number`,`email`,`notes_id`) VALUES ("'+req.body.name+'","'+req.body.street1+'","'+req.body.street2+'","'+req.body.city+'","'+req.body.states+'",'+req.body.zip+',"'+req.body.country+'","'+req.body.title+'","'+req.body.job_position+'","'+req.body.phone_number+'","'+req.body.mobile_number+'","'+req.body.email+'",'+results.insertId+')');
+            connection.query('INSERT INTO `contact`(`name`,`street1`,`street2`,`city`,`states`,`zip`,`country`,`title`,`job_position`,`phone_number`,`mobile_number`,`email`,`notes_id`) VALUES ("'+req.body.name+'","'+req.body.street1+'","'+req.body.street2+'","'+req.body.city+'","'+req.body.states+'",'+req.body.zip+',"'+req.body.country+'","'+req.body.title+'","'+req.body.job_position+'","'+req.body.phone_number+'","'+req.body.mobile_number+'","'+req.body.email+'",'+results.insertId+')', function (error, results1, fields) {
+                if (error) {
+                    res.json({"status": "failed", "message": error.message});
+                }
+                else {
+                    console.log(req.body);
+                    console.log('INSERT INTO `contact_contacts_addresses`(`parent_contact_id`,`child_contact_id`) VALUES ('+ req.body.id + ',' + results1.insertId + ')')
+                    connection.query('INSERT INTO `contact_contacts_addresses`(`parent_contact_id`,`child_contact_id`) VALUES ('+ req.body.id + ',' + results1.insertId + ')', function (error, results1, fields) {
+                        if (error) {
+                            res.json({"status": "failed", "message": error.message});
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+router.post('/createcontactmodal2', function (req, res, next) {
     if(!(req.body.zip)){
         req.body.zip=0;
     }
@@ -281,7 +333,8 @@ router.post('/createcontactmodal', function (req, res, next) {
                 }
                 else {
                     console.log(req.body);
-                    connection.query('INSERT INTO `contact_contacts_addresses`(`parent_contact_id`,`child_contact_id`) VALUES (' + req.body.lasting + ',' + results1.insertId + ')', function (error, results1, fields) {
+                    console.log('INSERT INTO `contact_contacts_addresses`(`parent_contact_id`,`child_contact_id`) VALUES ('+ req.body.lasting + ',' + results1.insertId + ')')
+                    connection.query('INSERT INTO `contact_contacts_addresses`(`parent_contact_id`,`child_contact_id`) VALUES ('+ req.body.lasting + ',' + results1.insertId + ')', function (error, results1, fields) {
                         if (error) {
                             res.json({"status": "failed", "message": error.message});
                         }
@@ -344,7 +397,7 @@ router.post('/selectcontactinfo1', function (req, res, next) {
 });
 router.post('/selectchild', function (req, res, next) {
 
-    connection.query('SELECT contact.id,contact.name,contact.email,contact.job_position FROM contact WHERE contact.id IN (SELECT contact_contacts_addresses.child_contact_id FROM contact_contacts_addresses WHERE contact_contacts_addresses.parent_contact_id = "'+req.body.id+'")', function (error, results, fields) {
+    connection.query('SELECT contact.id,contact.name,contact.email,contact.job_position FROM contact WHERE contact.id IN (SELECT contact_contacts_addresses.child_contact_id FROM contact_contacts_addresses WHERE contact_contacts_addresses.parent_contact_id = '+req.body.id+')', function (error, results, fields) {
         if (error) res.json({"status": "failed", "message": error.message});
         else{
             res.json({"status": "ok", "data": results});
@@ -354,7 +407,7 @@ router.post('/selectchild', function (req, res, next) {
 
 });
 router.post('/selectchilds', function (req, res, next) {
-    connection.query('SELECT contact.id,contact.name,contact.email,contact.job_position FROM contact WHERE contact.id IN (SELECT contact_contacts_addresses.child_contact_id FROM contact_contacts_addresses WHERE contact_contacts_addresses.parent_contact_id = "'+req.body.id+'")', function (error, results, fields) {
+    connection.query('SELECT contact.id,contact.name,contact.email,contact.job_position FROM contact WHERE contact.id IN (SELECT contact_contacts_addresses.child_contact_id FROM contact_contacts_addresses WHERE contact_contacts_addresses.parent_contact_id = 0)', function (error, results, fields) {
         if (error) res.json({"status": "failed", "message": error.message});
         else{
             res.json({"status": "ok", "data": results});
@@ -488,6 +541,12 @@ router.post('/createcontacteditmodal', function (req, res, next) {
         if (error) {
             res.json({"status": "failed", "message": error.message});
         }
+    });
+    connection.query('UPDATE contact_notes SET notes = "'+req.body.notes+'" WHERE id = '+ req.body.notes_id +'', function (error, results, fields) {
+        if (error) {
+            res.json({"status": "failed", "message": error.message});
+        }
+        // console.log(results);
     });
     connection.query('UPDATE contact_notes SET notes = "'+req.body.notes+'" WHERE id = '+ req.body.notes_id +'', function (error, results, fields) {
         if (error) {

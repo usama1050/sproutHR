@@ -193,6 +193,7 @@ export default{
             active1: '',
             color_in_report1: '',
             meeting_type1: '',
+            modal2: "Open: LeaveType",
             test: '',
             reported_last_payslips: '',
             test1: 0,
@@ -300,6 +301,14 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.leave_type_id="";
+            self.color_in_report="";
+            self.type="";
+            self.apply_double_validation="";
+            self.allow_override_limit="";
+            self.meeting_type="";
+            self.active="";
         },
         submitmodaledit: function () {
             var self = this;
@@ -315,6 +324,7 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg2").modal('hide');
 
         },
         submit4: function (id) {

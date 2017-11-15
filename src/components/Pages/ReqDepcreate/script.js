@@ -105,6 +105,13 @@ export default{
                 console.log(res.body);
             },function(err){
             });
+            $(".bd-example-modal-lg2").modal('hide');
+            self.$http.post("/recruitment/deps", {
+            }).then(function(res){
+                self.options2 =res.body.data;
+                console.log(res.body);
+            },function(err){
+            });
 
 
         },
@@ -126,7 +133,36 @@ export default{
             },function(err){
 
             });
-
+            $(".bd-example-modal-lg1").modal('hide');
+            self.mname="";
+            self.mparent_dept_id="";
+            self.mmanager_id="";
+            self.$http.post("/recruitment/deps", {
+            }).then(function(res){
+                self.options2 =res.body.data;
+                console.log(res.body);
+            },function(err){
+            });
+        },
+        SwitchButtons:   function (buttonId) {
+            var self = this;
+            self.status = buttonId;
+            self.$http.post("/sales/sales_team_status_update", {
+                "id": self.$route.params.id,
+                "status": self.status,
+            }).then(function (res) {
+            }, function (err) {
+            });
+            var hideBtn, showBtn;
+            if (buttonId == 'Active') {
+                showBtn = 'Archive';
+                hideBtn = 'Active';
+            } else {
+                showBtn = 'Active';
+                hideBtn = 'Archive';
+            }
+            document.getElementById(hideBtn).style.display = 'none'; //step 2 :additional feature hide button
+            document.getElementById(showBtn).style.display = '';
         },
         select2: function () {
             var self = this;
@@ -144,20 +180,13 @@ export default{
                     alert(err);
                 });
                 self.$http.post("/recruitment/emps", {
-
                 }).then(function(res){
                     self.options =res.body.data;
                     console.log(res.body);
                 },function(err){
-
                 });
             }, function (err) {
-
             });
-
-
-
-
         },
         select: function () {
             var self = this;

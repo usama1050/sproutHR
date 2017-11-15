@@ -157,16 +157,13 @@ export default{
             day = (day < 10 ? "0" : "") + day;
 
             return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
-
         }
-
         $(function(){
             $(document).ready(function(){
                 setInterval(function() {
                     self.selectidss(self.employee_id);
                 }, 10000);
             });
-
             $("#checkinbutton").click(function(){
                 $("#checkinresponse").show();
                 $("#checkin").hide();
@@ -185,7 +182,6 @@ export default{
                 var current_time = hour + ":" + min + ":" + sec;
                 console.log(current_time);
             });
-
             $("#checkoutbutton").click(function(){
                 $('#checkout').hide();
                 $('#checkoutresponse').show();
@@ -360,14 +356,14 @@ export default{
             },
             function (err) {
             });
-            self.$http.post("/recruitment/fetchattendance", {"employee_id": self.employee_id}).then(function (res) {
-                self.tables = res.body.data;
-            },function(err){
-            });
-            self.$http.post("/recruitment/fetchattendancetotal", {"employee_id": self.employee_id}).then(function (res) {
-                self.tablesf = res.body.data;
-            },function(err){
-            });
+            // self.$http.post("/recruitment/fetchattendance", {"employee_id": self.employee_id}).then(function (res) {
+            //     self.tables = res.body.data;
+            // },function(err){
+            // });
+            // self.$http.post("/recruitment/fetchattendancetotal", {"employee_id": self.employee_id}).then(function (res) {
+            //     self.tablesf = res.body.data;
+            // },function(err){
+            // });
         },
         breakin: function () {
             var self = this;
@@ -430,16 +426,16 @@ export default{
                     console.log(res.body);
                 },function(err){
                 });
-                self.$http.post("/recruitment/selecttotattime", {"id": self.employee_id}).then(function (res) {
-                        var parentdata = res.body.data[0];
-                        self.totalnew = parentdata.total;
-                        self.$http.post("/recruitment/updatetotalbreak2", {"employee_id": self.employee_id,"total": self.totalnew}).then(function(res){
-                            console.log(res.body);
-                        },function(err){
-                        });
-                    },
-                    function (err) {
-                    });
+                // self.$http.post("/recruitment/selecttotattime", {"id": self.employee_id}).then(function (res) {
+                //         var parentdata = res.body.data[0];
+                //         self.totalnew = parentdata.total;
+                //         self.$http.post("/recruitment/updatetotalbreak2", {"employee_id": self.employee_id,"total": self.totalnew}).then(function(res){
+                //             console.log(res.body);
+                //         },function(err){
+                //         });
+                //     },
+                //     function (err) {
+                //     });
             }
             else{
                 alert('wrong pin please try again')

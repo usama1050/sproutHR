@@ -253,7 +253,6 @@ export default{
                 self. naddress=self.null,
                 self.nnotes_id=self.null
 
-
         },
         insert3: function () {
             var self = this;

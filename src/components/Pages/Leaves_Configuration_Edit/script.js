@@ -93,6 +93,8 @@ export default{
             heading : "Administrator - Sprout",
             options: '',
             options2: '',
+            modal2: "Open: Meeting Type",
+            modal: "Open: Meeting Type",
             employee_id: '',
             description: '',
             leave_type_id: '',
@@ -193,6 +195,8 @@ export default{
                 console.log(res.body);
             },function(err){
             });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.meetingtypeinsert="";
         },
         submitss: function () {
             var self = this;
@@ -207,6 +211,7 @@ export default{
                 console.log(res.body);
             },function(err){
             });
+            $(".bd-example-modal-lg2").modal('hide');
         },
         selectmeetings: function () {
             var self = this;

@@ -2,8 +2,6 @@ import DashboardController from "./../../partials/DashboardController/DashboardC
 import Request_Quotation_Lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
 import ReqEdit from "./../../partials/ReqEdit/ReqEdit.vue"
-
-
 export default{
     created: function () {
         var self = this;
@@ -50,7 +48,6 @@ export default{
                     $(".bd-example-modal-lg1").modal('show');
                 }
             });
-
             $("#save").click(function () {
                 var r = confirm("Are you sure you want to  Insert New  Attendance");
                 if (r)

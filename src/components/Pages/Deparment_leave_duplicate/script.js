@@ -174,6 +174,7 @@ export default{
             leave_type_id: '',
             mode: '',
             duration: '',
+            modal2: "Open: LeaveType",
             status: '',
             num: '',
             test: '',
@@ -284,6 +285,14 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.leave_type_id="";
+            self.color_in_report="";
+            self.type="";
+            self.apply_double_validation="";
+            self.allow_override_limit="";
+            self.meeting_type="";
+            self.active="";
         },
         submitmodaledit: function () {
             var self = this;
@@ -299,6 +308,7 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg2").modal('hide');
 
         },
         submit3: function (id) {

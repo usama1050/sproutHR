@@ -186,6 +186,7 @@ export default{
             employee_id: '',
             description: '',
             leave_type_id: '',
+            modal2: "Open: LeaveType",
             mode: 'By Employee',
             test: '',
             reported_last_payslips: '',
@@ -304,6 +305,14 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.leave_type_id="";
+            self.color_in_report="";
+            self.type="";
+            self.apply_double_validation="";
+            self.allow_override_limit="";
+            self.meeting_type="";
+            self.active="";
         },
         submitmodaledit: function () {
             var self = this;
@@ -319,6 +328,7 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg2").modal('hide');
 
         },
         submit4: function (id) {

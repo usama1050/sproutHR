@@ -5,7 +5,6 @@ var session = require("express-session");
 var passport = require("passport");
 var validator = require("express-validator");
 var passportlocal = require("passport-local");
-
 var router = express.Router();
 var bcrypt   = require('bcrypt-nodejs');
 var saltRounds = 10;

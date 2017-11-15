@@ -15,17 +15,11 @@ export default{
                     $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
                         $("#success-alert").slideUp(500);
                     });
-
-
-
                 }
                 else{
                     window.location.href = "../leaves/leaves_allocation";
                     self.submit();
-
-
                 }
-
             });
             $("#one").click(function () {
                 if($(this).prop('checked')){
@@ -173,6 +167,7 @@ export default{
             description: '',
             leave_type_id: '',
             mode: '',
+            modal2: "Open: LeaveType",
             test: '',
             duration: '',
             reason: '',
@@ -289,6 +284,14 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.leave_type_id="";
+            self.color_in_report="";
+            self.type="";
+            self.apply_double_validation="";
+            self.allow_override_limit="";
+            self.meeting_type="";
+            self.active="";
         },
         submitmodaledit: function () {
             var self = this;
@@ -304,6 +307,7 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg2").modal('hide');
 
         },
         submit: function () {

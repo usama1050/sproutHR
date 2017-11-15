@@ -25,12 +25,11 @@ var transporter = nodemailer.createTransport({
 });
 var mysql = require("mysql");
 var connection = mysql.createConnection({
-    host: "46.101.37.156",
+    host: "192.168.100.106",
     user: "sprout",
     password: "sprout12345",
     database: "sprout"
 });
-
 connection.connect(function (err) {
     if(err){
         console.error('error connecting: ' + err.stack);
@@ -53,9 +52,6 @@ router.post("/inviteuser", function (req, res, next) {
             res.send("Something goes wrong!");
         }
         else {
-
-            //console.log(req.body.email);
-            //res.render('registration');
         }
     });
 });
@@ -96,15 +92,12 @@ router.get('/testsmtp', function (req, res, next) {
         }
         console.log('Message %s sent: %s', info.messageId, info.response);
     });
-
 });
 router.post('/source', function (req, res, next) {
-
     connection.query("select * from source", function (error, results, fields) {
         if (error) res.json({"status": "failed", "message": error.message});
         else{
             res.json({"status": "ok", "data": results});
-
         }
     });
 });
@@ -1897,7 +1890,7 @@ router.post('/selectattandacetotalbreak', function (req, res, next) {
     });
 });
 router.post('/selecttotattime', function (req, res, next) {
-    console.log('SELECT TIMEDIFF(`BreakOut`, `BreakIn`) as total from attandance where emp_id='+"'"+ req.body.id +"'" +' AND date='+"'"+ getDateTime2() +"'" +'');
+    console.log('SELECT TIMEDIFF(`CheckOut`, `CheckIn`) as total from attandance where emp_id='+"'"+ req.body.id +"'" +' AND date='+"'"+ getDateTime2() +"'" +'');
     connection.query('SELECT TIMEDIFF(`CheckOut`, `CheckIn`) as total from attandance where emp_id='+"'"+ req.body.id +"'" +' AND date='+"'"+ getDateTime2() +"'" +'',function (error, results, fields) {
         if (error) res.json({"status": "failed", "message": error.message});
         else{
@@ -1952,7 +1945,7 @@ router.post('/idselect', function (req, res, next) {
     });
 });
 router.post('/insertattandanceCheckIn', function (req, res, next) {
-    var d="00:00:00";
+    //var d="00:00:00";
     connection.query('INSERT INTO `attandance`(`emp_id`,`date`,`CheckIn`,`Breaktotal`,`TotalTime`) VALUES (' + req.body.employee_id + ',"' + getDateTime2() + '","' + getDateTime() + '","' + d + '","' + d + '")', function (error, results, fields) {
         if (error) {
             console.log(error.message);
@@ -1993,8 +1986,8 @@ router.post('/updatetotalbreak', function (req, res, next) {
 });
 router.post('/updatetotalbreak2', function (req, res, next) {
     var datetime = getDateTime2();
-
-    connection.query('UPDATE attandance SET TotalTime = ADDTIME(TotalTime,"'+req.body.total+'") WHERE emp_id = '+ req.body.employee_id +' AND date = "'+datetime+'"', function (error, results, fields) {
+    console.log('UPDATE attandance SET TotalTime = ADDTIME(TotalTime,"'+req.body.totalnew+'") WHERE emp_id = '+ req.body.employee_id +' AND date = "'+datetime+'"');
+    connection.query('UPDATE attandance SET TotalTime = ADDTIME(TotalTime,"'+req.body.totalnew+'") WHERE emp_id = '+ req.body.employee_id +' AND date = "'+datetime+'"', function (error, results, fields) {
         if (error) {
             console.log(error.message);
             res.json({"status": "failed", "message": error.message});
@@ -2106,11 +2099,12 @@ router.post('/fetchattendance', function (req, res, next) {
     });
 });
 router.post('/fetchattendancetotal', function (req, res, next) {
-    console.log('SELECT *  from attandance where emp_id='+req.body.employee_id+'');
-    connection.query('SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(`TotalTime`))) AS total  from attandance where emp_id="'+req.body.employee_id+'"AND date = '+ req.body.date +'', function (error, results, fields) {
+    var datetime = getDateTime2();
+
+    connection.query('SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(`TotalTime`))) AS total  from attandance where emp_id='+req.body.employee_id+' AND date = '+ datetime +'', function (error, results, fields) {
         if (error) res.json({"status": "failed", "message": error.message});
         else{
-            console.log(results);
+            console.log("result of total"+results);
             res.json({"status": "ok", "data": results});
         }
     });

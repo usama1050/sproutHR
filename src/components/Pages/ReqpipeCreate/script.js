@@ -9,6 +9,7 @@ export default{
         this.selectcontact();
         this.select();
         this.selecttag();
+        this.select3();
         this.selectid();
         $(function () {
             $("#refuse").click(function(){
@@ -119,6 +120,7 @@ export default{
             options7: '',
             application_status: '',
             appid: '',
+            num3: '',
             ids: 'ss',
             job_positions_id: '2',
             names: [],
@@ -137,6 +139,16 @@ export default{
     ready() {
     },
     methods: {
+        select3: function () {
+            var self = this;
+            self.$http.post("/recruitment/abcsnum", {"id": self.$route.params.id}).then(function (res) {
+                var parentdata = res.body.data[0];
+                self.num3 = parentdata.count;
+                console.log(res.body)
+                console.log(self.num)
+            }, function (err) {
+            });
+        },
         selectids: function (id) {
             var self = this;
             self.application_status=id;

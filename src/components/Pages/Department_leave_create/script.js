@@ -8,11 +8,7 @@ export default{
         document.title = this.title;
         var self = this;
         this.select();
-
-
         $(function(){
-
-
             $("#one").click(function () {
                 if($(this).prop('checked')){
                     self.apply_double_validation1=1;
@@ -96,7 +92,7 @@ export default{
                         });
                     }
                     else{
-                        window.location.href = "../Employees/AllocationRequests";
+                        window.location.href = "../leaves/leaves_table";
                         self.submit();
                     }
 
@@ -126,6 +122,7 @@ export default{
             options: '',
             options2: '',
             options3: '',
+            modal2: "Open: LeaveType",
             options7: '',
             employee_tag_id: '',
             apply_double_validation:'',
@@ -244,7 +241,6 @@ export default{
             self.$http.post("/Employees/leaveinsert", {"id": self.leave_type_id,"color_in_report": self.color_in_report,"type": self.type,"apply_double_validation": self.apply_double_validation,"allow_override_limit": self.allow_override_limit,"meeting_type": self.meeting_type,"active": self.active}).then(function(res){
                 console.log(res.body);
             },function(err){
-
             });
             self.$http.post("/Employees/confitableall", {
             }).then(function(res){
@@ -253,6 +249,14 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.leave_type_id="";
+            self.color_in_report="";
+            self.type="";
+            self.apply_double_validation="";
+            self.allow_override_limit="";
+            self.meeting_type="";
+            self.active="";
         },
         submitmodaledit: function () {
             var self = this;
@@ -268,6 +272,7 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg2").modal('hide');
 
         },
         submit: function () {

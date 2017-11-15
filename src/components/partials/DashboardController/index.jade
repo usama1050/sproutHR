@@ -10,6 +10,7 @@
                             button#searchbutton(type='submit')
                                 span.fa.fa-search-plus.samofa
 
+
             .col-sm-6.dashcontrollerbutton(style='padding-top: 24px;')
                 router-link.links.btn.btn-primary.samobuttopcontroller1#create(style="color:white;font-size: 13px;" ,v-if='createbtn', v-bind:to="links.createbtnlink")
                     | Creates
@@ -17,7 +18,7 @@
                     | Unstar all
                 router-link.links.btn.btn-primary.samobuttopcontroller(style="color:white;font-size: 13px;" ,v-if='Invitebtn', v-bind:to="links.Invitebtnlink")
                     | Invite
-                a.links.btn.btn-primary.samobuttopcontroller1(style="color:white;font-size: 13px;" ,v-if='modal',data-toggle='modal', v-bind:data-target='modal')
+                router-link.links.btn.btn-primary.samobuttopcontroller1(style="color:white;font-size: 13px;" ,v-if='modal',data-toggle='modal', v-bind:data-target='modal')
                     | Create
                 router-link.linksec.btn.btn-default.samobuttopcontroller(style="font-size: 13px;" ,v-if='importbtn', v-bind:to="links.importbtnlink")
                     | Import

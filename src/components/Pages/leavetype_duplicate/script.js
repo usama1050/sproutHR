@@ -90,7 +90,8 @@ export default{
             active:'',
             meetingtypeedit: '',
             meetingtypeinsert: '',
-            modal2: "Open: Department",
+            modal2: "Open: Meeting Type",
+            modal: "Open: Meeting Type",
             modal3: "Open: Job Title",
             modal4: "Open: Currency",
             modal5: "Open: Recruitment Responsible",
@@ -134,7 +135,6 @@ export default{
         },
         submits: function () {
             var self = this;
-
             self.$http.post("/leaves/meeting_type", {"meetingtype": self.meetingtypeinsert}).then(function(res){
                 console.log(res.body);
             },function(err){
@@ -145,6 +145,8 @@ export default{
                 console.log(res.body);
             },function(err){
             });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.meetingtypeinsert="";
         },
         submitss: function () {
             var self = this;
@@ -159,6 +161,7 @@ export default{
                 console.log(res.body);
             },function(err){
             });
+            $(".bd-example-modal-lg2").modal('hide');
         },
         submit: function () {
             var self = this;

@@ -89,6 +89,13 @@
                                         //.fa.fa-external-link.btn.btn-default.o_external_button(style='display: none;',data-toggle='modal', data-target='.bd-example-modal-lg1',draggable='false', tabindex='-1', type='button')
 
     ReqEdit
+        .oe_button_box(slot='depbutton')
+            button#Active.btn.btn-sm.oe_stat_button.sideviewtoggle.myButton(v-on:click="SwitchButtons('Active');")
+                .fa.fa-fw.fa-archive.o_button_icon
+                | Active
+            button#Archive.btn.btn-sm.oe_stat_button.sideviewtoggle.myButton(v-on:click="SwitchButtons('Archive');", style='display:none;')
+                .fa.fa-fw.fa-archive.o_button_icon
+                | Archive
         table.o_group.o_inner_group(slot='dep')
             tbody
                 tr

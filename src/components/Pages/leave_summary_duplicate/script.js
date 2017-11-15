@@ -203,6 +203,7 @@ export default{
             allow_override_limit1: '',
             active1: '',
             date_to: '',
+            modal2: "Open: LeaveType",
             date_from: '',
             mode: 'By Employee',
             color_in_report1: '',
@@ -323,21 +324,28 @@ export default{
             },function(err){
 
             });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.leave_type_id="";
+            self.color_in_report="";
+            self.type="";
+            self.apply_double_validation="";
+            self.allow_override_limit="";
+            self.meeting_type="";
+            self.active="";
         },
         submitmodaledit: function () {
             var self = this;
             self.$http.post("/leaves/leaveedit", {"ids": self.leave_type_id,"color_in_report": self.color_in_report1,"type": self.type1,"apply_double_validation": self.apply_double_validation1,"allow_override_limit": self.allow_override_limit1,"meeting_type": self.meeting_type1,"active": self.active1}).then(function(res){
                 console.log(res.body);
             },function(err){
-
             });
             self.$http.post("/leaves/confitableall", {
             }).then(function(res){
                 self.options =res.body.data;
                 console.log(res.body);
             },function(err){
-
             });
+            $(".bd-example-modal-lg2").modal('hide');
 
         },
         submit3: function (id) {

@@ -38,11 +38,11 @@
                                 .fa.fa-fw.fa-calendar.o_button_icon
                                 .o_form_field.o_stat_info
                                     span.o_stat_text Meetings
-                            router-link(v-bind:to="'ReqAppDoc/'+1")
+                            router-link(v-bind:to="'/recruitment/ReqAppDoc/'+$route.params.id")
                                 button.btn.btn-sm.oe_stat_button(type='button')
                                     .fa.fa-fw.fa-book.o_button_icon
                                     .o_form_field.o_stat_info
-                                        span.o_stat_value 0
+                                        span.o_stat_value {{num3}}
                                         span.o_stat_text Documents
                             button.btn.btn-sm.oe_stat_button.o_form_invisible(type='button')
                                 .fa.fa-fw.fa-user.o_button_icon

@@ -190,6 +190,13 @@ export default{
                 console.log(res.body);
             },function(err){
             });
+            $(".bd-example-modal-lg2").modal('hide');
+            self.$http.post("/recruitment/deps", {
+            }).then(function(res){
+                self.options2 =res.body.data;
+                console.log(res.body);
+            },function(err){
+            });
 
 
         },
@@ -202,6 +209,16 @@ export default{
                 console.log(res.body);
             },function(err){
 
+            });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.mname="";
+            self.mparent_dept_id="";
+            self.mmanager_id="";
+            self.$http.post("/recruitment/deps", {
+            }).then(function(res){
+                self.options2 =res.body.data;
+                console.log(res.body);
+            },function(err){
             });
 
         },

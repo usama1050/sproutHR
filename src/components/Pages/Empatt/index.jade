@@ -389,7 +389,8 @@
                                 .col-xs-4.o_hr_attendance_pin_pad_border
                                     a.btn.btn-primary.btn-block.btn-lg.o_hr_attendance_btn-round-corners.o_hr_attendance_pin_pad_button_0(type='button',style='color: white;',onclick="calc.display.value+='0'") 0
                                 .col-xs-4.o_hr_attendance_pin_pad_border
-                                    a.btn.btn-primary.btn-block.btn-lg.o_hr_attendance_btn-round-corners.o_hr_attendance_pin_pad_button_ok(v-on:click='update3(1)',type='button',style='color: white;',onclick="calc.display.value+=''") ok
+                                    router-link(to='Mode')
+                                        a.btn.btn-primary.btn-block.btn-lg.o_hr_attendance_btn-round-corners.o_hr_attendance_pin_pad_button_ok(v-on:click='update3(1)',type='button',style='color: white;',onclick="calc.display.value+=''") ok
                 br
                 .oe_attendance_sign_in_out
                 router-link(to='Mode')
@@ -430,7 +431,8 @@
                                 .col-xs-4.o_hr_attendance_pin_pad_border
                                     a.btn.btn-primary.btn-block.btn-lg.o_hr_attendance_btn-round-corners.o_hr_attendance_pin_pad_button_0(type='button',style='color: white;',onclick="calc1.display1.value+='0'") 0
                                 .col-xs-4.o_hr_attendance_pin_pad_border
-                                    a.btn.btn-primary.btn-block.btn-lg.o_hr_attendance_btn-round-corners.o_hr_attendance_pin_pad_button_ok(v-on:click='update4(0)',type='button',style='color: white;',onclick="calc1.display1.value+=''") ok
+                                    router-link(to='Mode')
+                                        a.btn.btn-primary.btn-block.btn-lg.o_hr_attendance_btn-round-corners.o_hr_attendance_pin_pad_button_ok(v-on:click='update4(0)',type='button',style='color: white;',onclick="calc1.display1.value+=''") ok
                 br
                 .oe_attendance_sign_in_out
                 router-link(to='Mode')
@@ -574,6 +576,6 @@
                             td {{row.CheckIn}}
                             td {{row.CheckOut}}
                             td {{row.Breaktotal}}
-                            td {{row.TotalTime}}
+                            td {{totalnew}}
 
 

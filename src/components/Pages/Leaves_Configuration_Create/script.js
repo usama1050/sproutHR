@@ -56,7 +56,7 @@ export default{
     data () {
         return {
             nextactivity: "Departments/New",
-            modal2: "Open: Department",
+            modal2: "Open: Meeting Type",
             modal3: "Open: Job Title",
             modal4: "Open: Currency",
             modal5: "Open: Recruitment Responsible",
@@ -117,6 +117,8 @@ export default{
                 console.log(res.body);
             },function(err){
             });
+            $(".bd-example-modal-lg1").modal('hide');
+            self.meetingtypeinsert="";
         },
         submitss: function () {
             var self = this;
@@ -131,6 +133,10 @@ export default{
                 console.log(res.body);
             },function(err){
             });
+
+            $(".bd-example-modal-lg2").modal('hide');
+
+
         },
         select: function () {
             var self = this;

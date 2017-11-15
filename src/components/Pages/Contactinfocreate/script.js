@@ -28,6 +28,7 @@ export default{
                 self.insert2();
                 self.new();
                 self.select2();
+                self.select();
             });
             $("#discard").click(function () {
                 self.select2();
@@ -119,7 +120,7 @@ export default{
             names: [],
             names1: [],
             mnotes_id:'',
-            lasting:'',
+            lasting:0,
             maccount_reciveable:'',
             maccount_payable:'',
             mcustomer_payment_terms:'',
@@ -176,13 +177,11 @@ export default{
                 console.log(res.body);
             },function(err){
                 if(!(typeof res.body.detail === 'undefined')){
-
                     window.location.href = "/contact";
                 }
                 else {
                     window.location.href = "/contact";
                 }
-
             });
         },
         new: function () {
@@ -210,7 +209,7 @@ export default{
         },
         insert2: function () {
             var self = this;
-            self.$http.post("/contact/createcontactmodal", {
+            self.$http.post("/contact/createcontactmodal2", {
                 "name": self.mname,
                 "individual": self.mindividual,
                 "company": self.mcompany,
@@ -234,6 +233,12 @@ export default{
                 "notes_id": self.mnotes_id,
             }).then(function(res){
                 console.log(res.body);
+            },function(err){
+            });
+            $(".bd-example-modal-lg").modal('hide');
+            self.$http.post("/contact/selectchilds", {"ids":self.ids}).then(function (res) {
+                self.names1 = res.body.data;
+                console.log(self.names1);
             },function(err){
             });
         },

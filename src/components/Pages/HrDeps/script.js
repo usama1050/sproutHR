@@ -247,6 +247,21 @@ export default{
         }
     },
     methods: {
+        SwitchButtons:   function (buttonId) {
+            var self = this;
+            self.status = buttonId;
+            self.$http.post("/sales/sales_team_status_update", {
+                "id": self.$route.params.id,
+                "status": self.status,
+            }).then(function (res) {
+            }, function (err) {
+            });
+            var hideBtn, showBtn;
+            if (buttonId == 'Active') {
+                showBtn = 'Archive';
+                hideBtn = 'Active';
+            }
+        },
         backsubmit: function () {
             var self = this;
             self.$http.post("/Employees/selectemployeeinfoForFormBack", {"id": self.$route.params.id}).then(function (res) {
